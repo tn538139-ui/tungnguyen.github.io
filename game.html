@@ -18,11 +18,14 @@ font-family:Arial;
 canvas{
 border:2px solid black;
 background:#87CEEB;
+max-width:95vw;
+height:auto;
 }
 </style>
 
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  
 <body>
 
 <canvas id="game" width="400" height="500"></canvas>
@@ -65,18 +68,21 @@ velocity=jump
 
 document.addEventListener("keydown",function(){
 
-if(gameState==="menu"){
-gameState="ready"
-}
-else if(gameState==="ready"){
-gameState="play"
-velocity=jump
-}
-else if(gameState==="play"){
+if(gameState==="menu" || gameState==="gameover"){
+startGame()
+}else{
 jumpBird()
 }
-else if(gameState==="gameover"){
+
+})
+
+})
+document.addEventListener("touchstart",function(){
+
+if(gameState==="menu" || gameState==="gameover"){
 startGame()
+}else{
+jumpBird()
 }
 
 })
@@ -259,15 +265,7 @@ drawPipes()
 drawScore()
 
 }
-if(gameState==="ready"){
 
-ctx.fillStyle="black"
-ctx.font="20px Arial"
-ctx.fillText("Press again to start",110,250)
-
-drawBird()
-
-}
 
 requestAnimationFrame(gameLoop)
 
