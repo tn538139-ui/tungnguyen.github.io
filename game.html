@@ -1,53 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Flappy Bird</title>
+
+<style>
+body{
+margin:0;
+background:#70c5ce;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+canvas{
+background:#70c5ce;
+border:2px solid black;
+}
+</style>
+
+</head>
+
+<body>
+
+<canvas id="game" width="400" height="500"></canvas>
+
 <script>
 
-const canvas=document.getElementById("game")
-const ctx=canvas.getContext("2d")
+const canvas = document.getElementById("game")
+const ctx = canvas.getContext("2d")
 
-let birdY=250
-let velocity=0
+let birdY = 250
+let velocity = 0
 
-const gravity=0.15
-const jump=-4
+const gravity = 0.15
+const jump = -4
 
-let pipes=[]
-let score=0
-let frame=0
+let pipes = []
+let score = 0
+let frame = 0
 
 function jumpBird(){
-velocity=jump
+velocity = jump
 }
 
 document.addEventListener("keydown",jumpBird)
 document.addEventListener("click",jumpBird)
 
 function reset(){
-birdY=250
-velocity=0
-pipes=[]
-score=0
-frame=0
+birdY = 250
+velocity = 0
+pipes = []
+score = 0
+frame = 0
 }
 
 function update(){
 
-velocity+=gravity
-birdY+=velocity
+velocity += gravity
+birdY += velocity
 
-if(birdY>500 || birdY<0){
+if(birdY > 500 || birdY < 0){
 reset()
 }
 
 frame++
 
-if(frame%120===0){
+if(frame % 120 === 0){
 
-let gap=150
-let top=Math.random()*200+50
+let gap = 150
+let top = Math.random()*200 + 50
 
 pipes.push({
 x:400,
 top:top,
-bottom:top+gap,
+bottom:top + gap,
 scored:false
 })
 
@@ -55,17 +83,17 @@ scored:false
 
 pipes.forEach(p=>{
 
-p.x-=2
+p.x -= 2
 
-if(!p.scored && p.x<100){
+if(!p.scored && p.x < 100){
 score++
-p.scored=true
+p.scored = true
 }
 
 if(
-100+12>p.x &&
-100-12<p.x+50 &&
-(birdY-12<p.top || birdY+12>p.bottom)
+100+12 > p.x &&
+100-12 < p.x+50 &&
+(birdY-12 < p.top || birdY+12 > p.bottom)
 ){
 reset()
 }
@@ -110,3 +138,6 @@ requestAnimationFrame(game)
 game()
 
 </script>
+
+</body>
+</html>
