@@ -143,11 +143,19 @@ gameState="gameover"
 
 function drawBird(){
 
-ctx.fillStyle="yellow"
+// thân
+ctx.fillStyle="#FFD93D"
 ctx.beginPath()
 ctx.arc(100,birdY,14,0,Math.PI*2)
 ctx.fill()
 
+// cánh
+ctx.fillStyle="#FFC300"
+ctx.beginPath()
+ctx.arc(95,birdY+2,8,0,Math.PI*2)
+ctx.fill()
+
+// mắt
 ctx.fillStyle="white"
 ctx.beginPath()
 ctx.arc(105,birdY-4,6,0,Math.PI*2)
@@ -158,36 +166,43 @@ ctx.beginPath()
 ctx.arc(107,birdY-4,3,0,Math.PI*2)
 ctx.fill()
 
-ctx.fillStyle="orange"
-ctx.fillRect(112,birdY-2,12,4)
+// mỏ
+ctx.fillStyle="#ff8c42"
+ctx.beginPath()
+ctx.moveTo(112,birdY-2)
+ctx.lineTo(125,birdY)
+ctx.lineTo(112,birdY+3)
+ctx.fill()
 
 }
 
 function drawPipes(){
 
-ctx.fillStyle="green"
-
 pipes.forEach(p=>{
+
+// ống trên
 ctx.fillStyle="#2ecc71"
 ctx.fillRect(p.x,0,60,p.top)
 
 ctx.fillStyle="#27ae60"
-ctx.fillRect(p.x-3,p.top-10,66,10)
+ctx.fillRect(p.x-4,p.top-12,68,12)
 
+// ống dưới
 ctx.fillStyle="#2ecc71"
 ctx.fillRect(p.x,p.bottom,60,500)
 
 ctx.fillStyle="#27ae60"
-ctx.fillRect(p.x-3,p.bottom,66,10)
+ctx.fillRect(p.x-4,p.bottom,68,12)
+
 })
 
 }
 
 function drawScore(){
 
-ctx.fillStyle="black"
-ctx.font="24px Arial"
-ctx.fillText("Score: "+score,10,30)
+ctx.fillStyle="white"
+ctx.font="bold 28px Arial"
+ctx.fillText(score,190,50)
 
 }
 function drawMenu(){
@@ -218,9 +233,12 @@ ctx.fillText("Click to restart",135,280)
 }
 function gameLoop(){
 
-ctx.fillStyle="#87CEEB"
-ctx.fillRect(0,0,400,500)
+let sky=ctx.createLinearGradient(0,0,0,500)
+sky.addColorStop(0,"#70c5ce")
+sky.addColorStop(1,"#bfe9ff")
 
+ctx.fillStyle=sky
+ctx.fillRect(0,0,400,500)
 // mây
 ctx.fillStyle="white"
 ctx.beginPath()
