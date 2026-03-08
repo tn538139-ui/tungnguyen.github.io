@@ -5,135 +5,124 @@
 <title>Flappy Bird</title>
 
 <style>
-
 body{
 margin:0;
-overflow:hidden;
 background:#70c5ce;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
 canvas{
-display:block;
-margin:auto;
 background:#70c5ce;
+border:3px solid black;
 }
-
 </style>
 
 </head>
 
 <body>
 
-<canvas id="game" width="400" height="600"></canvas>
+<canvas id="game" width="400" height="500"></canvas>
 
 <script>
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let bird = {
-x:80,
-y:150,
-gravity:0.5,
-lift:-8,
-velocity:0
-};
-
+let bird = {x:80,y:200,v:0};
 let pipes = [];
-let frame = 0;
 let score = 0;
 
-function drawBird(){
+function spawnPipe(){
 
-ctx.fillStyle="yellow";
-ctx.beginPath();
-ctx.arc(bird.x,bird.y,15,0,Math.PI*2);
-ctx.fill();
-
-}
-
-function drawPipes(){
-
-for(let i=0;i<pipes.length;i++){
-
-let p = pipes[i];
-
-ctx.fillStyle="green";
-ctx.fillRect(p.x,0,50,p.top);
-
-ctx.fillRect(p.x,p.bottom,50,canvas.height);
-
-p.x -= 2;
-
-if(p.x == 78){
-score++;
-}
-
-if(
-bird.x+15 > p.x &&
-bird.x-15 < p.x+50 &&
-(bird.y-15 < p.top || bird.y+15 > p.bottom)
-){
-location.reload();
-}
-
-}
-
-}
-
-function update(){
-
-bird.velocity += bird.gravity;
-bird.y += bird.velocity;
-
-if(bird.y > canvas.height || bird.y < 0){
-location.reload();
-}
-
-frame++;
-
-if(frame % 100 === 0){
-
-let gap = 140;
-
-let top = Math.random()*300+50;
+let gap = 120;
+let top = Math.random()*250+50;
 
 pipes.push({
-x:canvas.width,
+x:400,
 top:top,
 bottom:top+gap
 });
 
 }
 
+setInterval(spawnPipe,2000);
+
+function update(){
+
+bird.v += 0.5;
+bird.y += bird.v;
+
+if(bird.y > 500 || bird.y < 0){
+reset();
 }
 
-function drawScore(){
+pipes.forEach(p=>{
+
+p.x -= 2;
+
+if(
+bird.x+15 > p.x &&
+bird.x-15 < p.x+50 &&
+(bird.y-15 < p.top || bird.y+15 > p.bottom)
+){
+reset();
+}
+
+if(p.x === 80){
+score++;
+}
+
+});
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,400,500);
+
+ctx.fillStyle="yellow";
+ctx.beginPath();
+ctx.arc(bird.x,bird.y,15,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle="green";
+
+pipes.forEach(p=>{
+
+ctx.fillRect(p.x,0,50,p.top);
+ctx.fillRect(p.x,p.bottom,50,500);
+
+});
 
 ctx.fillStyle="black";
-ctx.font="30px Arial";
-ctx.fillText("Score: "+score,10,40);
+ctx.font="25px Arial";
+ctx.fillText("Score: "+score,10,30);
 
 }
 
 function loop(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
 update();
-drawBird();
-drawPipes();
-drawScore();
-
+draw();
 requestAnimationFrame(loop);
 
 }
 
-document.addEventListener("keydown",function(){
-
-bird.velocity = bird.lift;
-
+document.addEventListener("keydown",()=>{
+bird.v = -8;
 });
+
+function reset(){
+
+bird.y = 200;
+bird.v = 0;
+pipes = [];
+score = 0;
+
+}
 
 loop();
 
