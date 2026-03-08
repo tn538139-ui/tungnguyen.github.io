@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Flappy Bird với Skin</title>
+<title>Flappy Bird với Skin Đại bàng</title>
 <style>
 body{
   margin:0;
@@ -51,6 +51,10 @@ let frame=0
 
 // Skin hiện tại
 let currentSkin = "bird";
+
+// Ảnh đại bàng từ link bạn đưa
+const eagleImg = new Image();
+eagleImg.src = "https://ngoquangdao.files.wordpress.com/2013/04/daibang1.jpg";
 
 function reset(){
   birdY=250
@@ -173,39 +177,9 @@ function drawBirdDefault(){
   ctx.fill()
 }
 
-// Vẽ đại bàng
+// Vẽ đại bàng bằng ảnh
 function drawEagle(){
-  // thân nâu
-  ctx.fillStyle="#654321";
-  ctx.beginPath();
-  ctx.arc(100,birdY,16,0,Math.PI*2);
-  ctx.fill();
-
-  // đầu trắng
-  ctx.fillStyle="white";
-  ctx.beginPath();
-  ctx.arc(115,birdY-8,10,0,Math.PI*2);
-  ctx.fill();
-
-  // mắt
-  ctx.fillStyle="black";
-  ctx.beginPath();
-  ctx.arc(118,birdY-8,3,0,Math.PI*2);
-  ctx.fill();
-
-  // mỏ vàng
-  ctx.fillStyle="yellow";
-  ctx.beginPath();
-  ctx.moveTo(125,birdY-6);
-  ctx.lineTo(135,birdY-3);
-  ctx.lineTo(125,birdY-1);
-  ctx.fill();
-
-  // cánh
-  ctx.fillStyle="#3d2b1f";
-  ctx.beginPath();
-  ctx.arc(90,birdY+5,10,0,Math.PI*2);
-  ctx.fill();
+  ctx.drawImage(eagleImg, 80, birdY-30, 60, 60);
 }
 
 // Hàm vẽ chim theo skin
