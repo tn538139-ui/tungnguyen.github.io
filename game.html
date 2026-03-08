@@ -12,11 +12,12 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+font-family:Arial;
 }
 
 canvas{
-background:#70c5ce;
 border:2px solid black;
+background:#87CEEB;
 }
 </style>
 
@@ -28,54 +29,71 @@ border:2px solid black;
 
 <script>
 
-const canvas = document.getElementById("game")
-const ctx = canvas.getContext("2d")
+const canvas=document.getElementById("game")
+const ctx=canvas.getContext("2d")
 
-let birdY = 250
-let velocity = 0
+let gameState="menu"
 
-const gravity = 0.15
-const jump = -4
+let birdY=250
+let velocity=0
 
-let pipes = []
-let score = 0
-let frame = 0
+const gravity=0.15
+const jump=-4
+
+let pipes=[]
+let score=0
+let frame=0
+
+function reset(){
+birdY=250
+velocity=0
+pipes=[]
+score=0
+frame=0
+}
+
+function startGame(){
+reset()
+gameState="play"
+}
 
 function jumpBird(){
-velocity = jump
+if(gameState==="play"){
+velocity=jump
+}
 }
 
 document.addEventListener("keydown",jumpBird)
-document.addEventListener("click",jumpBird)
+document.addEventListener("click",function(e){
 
-function reset(){
-birdY = 250
-velocity = 0
-pipes = []
-score = 0
-frame = 0
+if(gameState==="menu"){
+startGame()
+}else{
+jumpBird()
 }
+
+})
 
 function update(){
 
-velocity += gravity
-birdY += velocity
+velocity+=gravity
+birdY+=velocity
 
-if(birdY > 500 || birdY < 0){
-reset()
+if(birdY>500||birdY<0){
+gameState="menu"
 }
 
 frame++
 
-if(frame % 120 === 0){
+if(frame%120===0){
 
-let gap = 150
-let top = Math.random()*200 + 50
+let gap=150
+let top=Math.random()*200+50
 
 pipes.push({
 x:400,
 top:top,
-bottom:top + gap,
+bottom:top+gap,
 scored:false
 })
 
@@ -83,42 +101,49 @@ scored:false
 
 pipes.forEach(p=>{
 
-p.x -= 2
+p.x-=2
 
-if(!p.scored && p.x < 100){
+if(!p.scored && p.x<100){
 score++
-p.scored = true
+p.scored=true
 }
 
 if(
-100+12 > p.x &&
-100-12 < p.x+50 &&
-(birdY-12 < p.top || birdY+12 > p.bottom)
+100+12>p.x &&
+100-12<p.x+50 &&
+(birdY-12<p.top || birdY+12>p.bottom)
 ){
-reset()
+gameState="menu"
 }
 
 })
 
 }
 
-function draw(){
-
-ctx.clearRect(0,0,400,500)
+function drawBird(){
 
 ctx.fillStyle="yellow"
 ctx.beginPath()
 ctx.arc(100,birdY,12,0,Math.PI*2)
 ctx.fill()
 
+ctx.fillStyle="orange"
+ctx.fillRect(110,birdY-3,10,6)
+
+}
+
+function drawPipes(){
+
 ctx.fillStyle="green"
 
 pipes.forEach(p=>{
-
 ctx.fillRect(p.x,0,50,p.top)
 ctx.fillRect(p.x,p.bottom,50,500)
-
 })
+
+}
+
+function drawScore(){
 
 ctx.fillStyle="black"
 ctx.font="24px Arial"
@@ -126,16 +151,42 @@ ctx.fillText("Score: "+score,10,30)
 
 }
 
-function game(){
+function drawMenu(){
 
-update()
-draw()
+ctx.fillStyle="black"
+ctx.font="40px Arial"
+ctx.fillText("PLAY",150,250)
 
-requestAnimationFrame(game)
+ctx.font="20px Arial"
+ctx.fillText("Click to start",140,290)
 
 }
 
-game()
+function gameLoop(){
+
+ctx.clearRect(0,0,400,500)
+
+if(gameState==="menu"){
+
+drawBird()
+drawMenu()
+
+}
+
+if(gameState==="play"){
+
+update()
+drawBird()
+drawPipes()
+drawScore()
+
+}
+
+requestAnimationFrame(gameLoop)
+
+}
+
+gameLoop()
 
 </script>
 
