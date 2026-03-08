@@ -64,9 +64,9 @@ velocity=jump
 }
 
 document.addEventListener("keydown",jumpBird)
-document.addEventListener("click",function(e){
+document.addEventListener("click",function(){
 
-if(gameState==="menu"){
+if(gameState==="menu" || gameState==="gameover"){
 startGame()
 }else{
 jumpBird()
@@ -113,7 +113,7 @@ if(
 100-12<p.x+50 &&
 (birdY-12<p.top || birdY+12>p.bottom)
 ){
-gameState="menu"
+gameState="gameover"
 }
 
 })
@@ -186,10 +186,13 @@ function drawGameOver(){
 
 ctx.fillStyle="black"
 ctx.font="40px Arial"
-ctx.fillText("GAME OVER",90,220)
+ctx.fillText("GAME OVER",90,200)
 
-ctx.font="20px Arial"
-ctx.fillText("Click to restart",140,260)
+ctx.font="24px Arial"
+ctx.fillText("Score: "+score,150,240)
+
+ctx.font="18px Arial"
+ctx.fillText("Click to restart",135,280)
 
 }
 function gameLoop(){
@@ -227,6 +230,7 @@ drawMenu()
 if(gameState==="gameover"){
 
 drawBird()
+drawPipes()
 drawGameOver()
 
 }
