@@ -9,38 +9,55 @@
 body{
 font-family: Arial;
 margin:0;
-background:#f2f2f2;
+background:#eef2f7;
 }
 
 header{
-background:#0066cc;
+background:#1a4fa3;
 color:white;
-padding:20px;
+padding:25px;
 text-align:center;
 }
 
 nav{
-background:#003366;
-padding:10px;
+background:#0d2c6c;
+padding:12px;
 text-align:center;
 }
 
 nav a{
 color:white;
-margin:15px;
+margin:20px;
 text-decoration:none;
 font-weight:bold;
 }
 
-.container{
-padding:20px;
+nav a:hover{
+color:yellow;
 }
 
-.news{
+.container{
+display:flex;
+max-width:1100px;
+margin:auto;
+margin-top:20px;
+gap:20px;
+}
+
+.left{
+flex:3;
+}
+
+.right{
+flex:1;
+}
+
+.box{
 background:white;
 padding:15px;
+border-radius:6px;
 margin-bottom:15px;
-border-radius:5px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
 footer{
@@ -52,6 +69,7 @@ margin-top:20px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -64,25 +82,38 @@ margin-top:20px;
 <nav>
 <a href="#">Trang chủ</a>
 <a href="#">Thông báo</a>
-<a href="#">Lịch học</a>
+<a href="#">Tin tức</a>
 <a href="#">Tài liệu</a>
 </nav>
 
 <div class="container">
 
-<div class="news">
-<h3>Thông báo</h3>
-<p>Tuần tới kiểm tra giữa kỳ môn Toán và Văn.</p>
-</div>
+<div class="left">
 
-<div class="news">
+<div class="box">
 <h3>Tin tức</h3>
-<p>Trường tổ chức hoạt động ngoại khóa cho học sinh khối 11.</p>
+<p>Trường tổ chức hoạt động ngoại khóa cho học sinh.</p>
 </div>
 
-<div class="news">
-<h3>Tài liệu học tập</h3>
-<p>Tài liệu ôn tập học kỳ đã được đăng.</p>
+<div class="box">
+<h3>Sự kiện</h3>
+<p>Cuộc thi học sinh giỏi cấp trường sắp diễn ra.</p>
+</div>
+
+</div>
+
+<div class="right">
+
+<div class="box">
+<h3>Thông báo</h3>
+<p>Tuần sau kiểm tra giữa kỳ.</p>
+</div>
+
+<div class="box">
+<h3>Lịch học</h3>
+<p>Cập nhật thời khóa biểu mới.</p>
+</div>
+
 </div>
 
 </div>
