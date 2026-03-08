@@ -63,7 +63,15 @@ velocity=jump
 }
 }
 
-document.addEventListener("keydown",jumpBird)
+document.addEventListener("keydown",function(){
+
+if(gameState==="menu" || gameState==="gameover"){
+startGame()
+}else{
+jumpBird()
+}
+
+})
 document.addEventListener("click",function(){
 
 if(gameState==="menu" || gameState==="gameover"){
