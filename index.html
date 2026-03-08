@@ -6,6 +6,35 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<style>
+
+.banner{
+height:420px;
+background-image:url("https://picsum.photos/1400/420");
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+text-align:center;
+}
+
+.banner h1{
+font-size:55px;
+background:rgba(0,0,0,0.5);
+padding:15px 30px;
+border-radius:8px;
+}
+
+.section-title{
+border-left:6px solid #0d6efd;
+padding-left:10px;
+margin-bottom:15px;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -23,25 +52,31 @@
 </div>
 </nav>
 
-<div class="container mt-4">
+<div class="banner">
+<h1>Cổng thông tin học sinh</h1>
+</div>
 
-<img src="https://picsum.photos/1200/400" class="img-fluid rounded mb-4">
+<div class="container mt-4">
 
 <div class="row">
 
 <div class="col-md-8">
 
+<h3 class="section-title">Tin nổi bật</h3>
+
 <div class="card mb-3">
+<img src="https://picsum.photos/800/350" class="card-img-top">
 <div class="card-body">
-<h4>Tin nổi bật</h4>
-<p>Trường tổ chức hoạt động ngoại khóa cho học sinh khối 11.</p>
+<h4>Hoạt động ngoại khóa</h4>
+<p>Học sinh tham gia hoạt động ngoại khóa giúp phát triển kỹ năng.</p>
 </div>
 </div>
 
-<div class="card">
+<div class="card mb-3">
+<img src="https://picsum.photos/801/350" class="card-img-top">
 <div class="card-body">
-<h4>Hoạt động</h4>
-<p>Cuộc thi học sinh giỏi cấp trường sắp diễn ra.</p>
+<h4>Ngày hội STEM</h4>
+<p>Ngày hội khoa học dành cho học sinh toàn trường.</p>
 </div>
 </div>
 
@@ -49,12 +84,31 @@
 
 <div class="col-md-4">
 
-<div class="card">
-<div class="card-body">
-<h5>Thông báo</h5>
-<p>Tuần sau kiểm tra giữa kỳ.</p>
-</div>
-</div>
+<h3 class="section-title">Thông báo</h3>
+
+<ul class="list-group mb-4">
+
+<li class="list-group-item">
+<b>Lịch kiểm tra giữa kỳ</b><br>
+<small>10/03/2026</small>
+</li>
+
+<li class="list-group-item">
+<b>Thông báo họp phụ huynh</b><br>
+<small>05/03/2026</small>
+</li>
+
+<li class="list-group-item">
+<b>Lịch nghỉ lễ</b><br>
+<small>01/03/2026</small>
+</li>
+
+<li class="list-group-item">
+<b>Cuộc thi học sinh giỏi</b><br>
+<small>25/02/2026</small>
+</li>
+
+</ul>
 
 </div>
 
@@ -62,10 +116,9 @@
 
 </div>
 
-<footer class="bg-dark text-white text-center p-3 mt-4">
-© 2026 THPT Ngô Gia Tự
+<footer class="bg-dark text-white text-center p-3 mt-5">
+© 2026 THPT Ngô Gia Tự - Cổng thông tin học sinh
 </footer>
 
 </body>
-</html>
 </html>
