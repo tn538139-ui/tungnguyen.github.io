@@ -7,16 +7,15 @@
 <style>
 
 body{
-font-family: Arial;
+font-family:Arial;
 margin:0;
 background:#eef2f7;
 }
 
-header{
-background:#1a4fa3;
-color:white;
-padding:25px;
-text-align:center;
+header img{
+width:100%;
+height:300px;
+object-fit:cover;
 }
 
 nav{
@@ -37,35 +36,16 @@ color:yellow;
 }
 
 .container{
-display:flex;
-max-width:1100px;
+max-width:1000px;
 margin:auto;
-margin-top:20px;
-gap:20px;
-}
-
-.left{
-flex:3;
-}
-
-.right{
-flex:1;
+padding:20px;
 }
 
 .box{
 background:white;
 padding:15px;
-border-radius:6px;
 margin-bottom:15px;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-footer{
-background:#222;
-color:white;
-text-align:center;
-padding:10px;
-margin-top:20px;
+border-radius:6px;
 }
 
 </style>
@@ -75,52 +55,23 @@ margin-top:20px;
 <body>
 
 <header>
-<h1>Trường THPT Ngô Gia Tự</h1>
-<p>Cổng thông tin học sinh</p>
+<img src="https://picsum.photos/1200/300">
 </header>
 
 <nav>
-<a href="#">Trang chủ</a>
-<a href="#">Thông báo</a>
-<a href="#">Tin tức</a>
-<a href="#">Tài liệu</a>
+<a href="index.html">Trang chủ</a>
+<a href="thongbao.html">Thông báo</a>
+<a href="tintuc.html">Tin tức</a>
 </nav>
 
 <div class="container">
 
-<div class="left">
-
 <div class="box">
-<h3>Tin tức</h3>
-<p>Trường tổ chức hoạt động ngoại khóa cho học sinh.</p>
-</div>
-
-<div class="box">
-<h3>Sự kiện</h3>
-<p>Cuộc thi học sinh giỏi cấp trường sắp diễn ra.</p>
+<h2>Chào mừng đến website</h2>
+<p>Đây là cổng thông tin học sinh.</p>
 </div>
 
 </div>
-
-<div class="right">
-
-<div class="box">
-<h3>Thông báo</h3>
-<p>Tuần sau kiểm tra giữa kỳ.</p>
-</div>
-
-<div class="box">
-<h3>Lịch học</h3>
-<p>Cập nhật thời khóa biểu mới.</p>
-</div>
-
-</div>
-
-</div>
-
-<footer>
-<p>© 2026 THPT Ngô Gia Tự</p>
-</footer>
 
 </body>
 </html>
