@@ -2,10 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Flappy Bird</title>
-
+<title>Flappy</title>
 <style>
-
 body{
 margin:0;
 background:#70c5ce;
@@ -14,14 +12,11 @@ justify-content:center;
 align-items:center;
 height:100vh;
 }
-
 canvas{
 background:#70c5ce;
-border:3px solid black;
+border:2px solid black;
 }
-
 </style>
-
 </head>
 
 <body>
@@ -30,114 +25,49 @@ border:3px solid black;
 
 <script>
 
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("game")
+const ctx=canvas.getContext("2d")
 
-let bird = {
-x:80,
-y:200,
-velocity:0,
-gravity:0.4,
-lift:-7
-};
+let birdY=250
+let velocity=0
 
-let pipes = [];
-let score = 0;
-let frame = 0;
+const gravity=0.15
+const jump=-4
 
-function reset(){
+function jumpBird(){
+velocity=jump
+}
 
-bird.y = 200;
-bird.velocity = 0;
-pipes = [];
-score = 0;
+document.addEventListener("keydown",jumpBird)
+document.addEventListener("click",jumpBird)
+
+function game(){
+
+velocity+=gravity
+birdY+=velocity
+
+if(birdY>500){
+birdY=250
+velocity=0
+}
+
+ctx.clearRect(0,0,400,500)
+
+ctx.fillStyle="yellow"
+ctx.beginPath()
+ctx.arc(100,birdY,12,0,Math.PI*2)
+ctx.fill()
+
+requestAnimationFrame(game)
 
 }
 
-function update(){
+game()
 
-bird.velocity += bird.gravity;
-bird.y += bird.velocity;
+</script>
 
-if(bird.y > canvas.height || bird.y < 0){
-reset();
-}
-
-frame++;
-
-if(frame % 120 === 0){
-
-let gap = 150;
-let top = Math.random()*200 + 50;
-
-pipes.push({
-x:400,
-top:top,
-bottom:top + gap,
-scored:false
-});
-
-}
-
-pipes.forEach(p=>{
-
-p.x -= 2;
-
-if(!p.scored && p.x + 50 < bird.x){
-score++;
-p.scored = true;
-}
-
-if(
-bird.x + 12 > p.x &&
-bird.x - 12 < p.x + 50 &&
-(bird.y - 12 < p.top || bird.y + 12 > p.bottom)
-){
-reset();
-}
-
-});
-
-}
-
-function draw(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="yellow";
-ctx.beginPath();
-ctx.arc(bird.x,bird.y,12,0,Math.PI*2);
-ctx.fill();
-
-ctx.fillStyle="green";
-
-pipes.forEach(p=>{
-
-ctx.fillRect(p.x,0,50,p.top);
-ctx.fillRect(p.x,p.bottom,50,canvas.height);
-
-});
-
-ctx.fillStyle="black";
-ctx.font="24px Arial";
-ctx.fillText("Score: "+score,10,30);
-
-}
-
-function loop(){
-
-update();
-draw();
-requestAnimationFrame(loop);
-
-}
-
-document.addEventListener("keydown",()=>{
-bird.velocity = bird.lift;
-});
-
-loop();
-
+</body>
+</html>
 </script>
 
 </body>
