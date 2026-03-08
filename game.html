@@ -123,12 +123,19 @@ gameState="menu"
 function drawBird(){
 
 ctx.fillStyle="yellow"
-ctx.beginPath()
-ctx.arc(100,birdY,12,0,Math.PI*2)
-ctx.fill()
+ctx.fillRect(88,birdY-12,24,24)
+
+ctx.fillStyle="white"
+ctx.fillRect(105,birdY-6,8,8)
+
+ctx.fillStyle="black"
+ctx.fillRect(108,birdY-3,4,4)
 
 ctx.fillStyle="orange"
-ctx.fillRect(110,birdY-3,10,6)
+ctx.fillRect(112,birdY-2,10,4)
+
+ctx.fillStyle="gold"
+ctx.fillRect(90,birdY,10,4)
 
 }
 
@@ -164,7 +171,22 @@ ctx.fillText("Click to start",140,290)
 
 function gameLoop(){
 
-ctx.clearRect(0,0,400,500)
+ctx.fillStyle="#87CEEB"
+ctx.fillRect(0,0,400,500)
+
+// mây
+ctx.fillStyle="white"
+ctx.beginPath()
+ctx.arc(80,80,20,0,Math.PI*2)
+ctx.arc(100,80,25,0,Math.PI*2)
+ctx.arc(120,80,20,0,Math.PI*2)
+ctx.fill()
+
+ctx.beginPath()
+ctx.arc(300,120,20,0,Math.PI*2)
+ctx.arc(320,120,25,0,Math.PI*2)
+ctx.arc(340,120,20,0,Math.PI*2)
+ctx.fill()
 
 if(gameState==="menu"){
 
