@@ -5,6 +5,7 @@
 <title>Flappy Bird</title>
 
 <style>
+
 body{
 margin:0;
 background:#70c5ce;
@@ -18,6 +19,7 @@ canvas{
 background:#70c5ce;
 border:3px solid black;
 }
+
 </style>
 
 </head>
@@ -31,48 +33,67 @@ border:3px solid black;
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let bird = {x:80,y:200,v:0};
+let bird = {
+x:80,
+y:200,
+velocity:0,
+gravity:0.4,
+lift:-7
+};
+
 let pipes = [];
 let score = 0;
+let frame = 0;
 
-function spawnPipe(){
+function reset(){
 
-let gap = 120;
-let top = Math.random()*250+50;
+bird.y = 200;
+bird.velocity = 0;
+pipes = [];
+score = 0;
+
+}
+
+function update(){
+
+bird.velocity += bird.gravity;
+bird.y += bird.velocity;
+
+if(bird.y > canvas.height || bird.y < 0){
+reset();
+}
+
+frame++;
+
+if(frame % 120 === 0){
+
+let gap = 150;
+let top = Math.random()*200 + 50;
 
 pipes.push({
 x:400,
 top:top,
-bottom:top+gap
+bottom:top + gap,
+scored:false
 });
 
-}
-
-setInterval(spawnPipe,2000);
-
-function update(){
-
-bird.v += 0.5;
-bird.y += bird.v;
-
-if(bird.y > 500 || bird.y < 0){
-reset();
 }
 
 pipes.forEach(p=>{
 
 p.x -= 2;
 
-if(
-bird.x+15 > p.x &&
-bird.x-15 < p.x+50 &&
-(bird.y-15 < p.top || bird.y+15 > p.bottom)
-){
-reset();
+if(!p.scored && p.x + 50 < bird.x){
+score++;
+p.scored = true;
 }
 
-if(p.x === 80){
-score++;
+if(
+bird.x + 12 > p.x &&
+bird.x - 12 < p.x + 50 &&
+(bird.y - 12 < p.top || bird.y + 12 > p.bottom)
+){
+reset();
 }
 
 });
@@ -81,11 +102,11 @@ score++;
 
 function draw(){
 
-ctx.clearRect(0,0,400,500);
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
 ctx.fillStyle="yellow";
 ctx.beginPath();
-ctx.arc(bird.x,bird.y,15,0,Math.PI*2);
+ctx.arc(bird.x,bird.y,12,0,Math.PI*2);
 ctx.fill();
 
 ctx.fillStyle="green";
@@ -93,12 +114,12 @@ ctx.fillStyle="green";
 pipes.forEach(p=>{
 
 ctx.fillRect(p.x,0,50,p.top);
-ctx.fillRect(p.x,p.bottom,50,500);
+ctx.fillRect(p.x,p.bottom,50,canvas.height);
 
 });
 
 ctx.fillStyle="black";
-ctx.font="25px Arial";
+ctx.font="24px Arial";
 ctx.fillText("Score: "+score,10,30);
 
 }
@@ -112,17 +133,8 @@ requestAnimationFrame(loop);
 }
 
 document.addEventListener("keydown",()=>{
-bird.v = -8;
+bird.velocity = bird.lift;
 });
-
-function reset(){
-
-bird.y = 200;
-bird.v = 0;
-pipes = [];
-score = 0;
-
-}
 
 loop();
 
